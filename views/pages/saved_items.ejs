@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Saved Items</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     /* Base Styles */
     * {
@@ -19,6 +21,77 @@
       background-color: black;
       min-height: 100vh;
       overflow-x: hidden;
+      display: flex;
+    }
+
+    /* Instagram-style Sidebar */
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: #000;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-size: 24px;
+      font-weight: 700;
+      padding: 10px 20px 30px;
+      display: block;
+      text-decoration: none;
+      color: white;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 0 8px 8px;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item.active {
+      font-weight: 600;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item i {
+      font-size: 20px;
+      margin-right: 12px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 220px;
+      width: calc(100% - 220px);
     }
 
     .container {
@@ -46,16 +119,82 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
     }
+
+    /* Media Query for Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 70px;
+      }
+
+      .sidebar-logo {
+        font-size: 20px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .nav-item span {
+        display: none;
+      }
+
+      .nav-item i {
+        margin-right: 0;
+      }
+
+      .main-content {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="headline">Your Saved Items</h1>
-    <ul class="saved-items-list">
-      <% savedItems.forEach(function(item) { %>
-        <li class="saved-item"><%= item.name %> - <%= item.description %></li>
-      <% }); %>
-    </ul>
+  <!-- Instagram-style Sidebar -->
+  <div class="sidebar">
+    <a href="/" class="sidebar-logo">CostTracker</a>
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/search" class="nav-item">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </a>
+      <a href="/explore" class="nav-item">
+        <i class="fas fa-compass"></i>
+        <span>Explore</span>
+      </a>
+      <a href="/notifications" class="nav-item">
+        <i class="fas fa-heart"></i>
+        <span>Notifications</span>
+      </a>
+      <a href="/saved-items" class="nav-item active">
+        <i class="fas fa-bookmark"></i>
+        <span>Saved Items</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/settings" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <h1 class="headline">Your Saved Items</h1>
+      <ul class="saved-items-list">
+        <% savedItems.forEach(function(item) { %>
+          <li class="saved-item"><%= item.name %> - <%= item.description %></li>
+        <% }); %>
+      </ul>
+    </div>
   </div>
 </body>
 </html>

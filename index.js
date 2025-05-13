@@ -16,7 +16,15 @@ app.get('/', (req, res) => {
 
 app.get('/main', (req, res) => {
   console.log(`Rendering 'pages/saved_items' for route '/main'`)
-  res.render('pages/saved_items')
+  
+  // Sample data for savedItems
+  const savedItems = [
+    { name: 'Item 1', description: 'Description for item 1' },
+    { name: 'Item 2', description: 'Description for item 2' },
+    { name: 'Item 3', description: 'Description for item 3' }
+  ];
+  
+  res.render('pages/saved_items', { savedItems: savedItems })
 })
 
 const server = app.listen(port, () => {
