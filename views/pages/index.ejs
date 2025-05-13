@@ -1,93 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%- include ("../partials/header.ejs") %>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
+      background-color: white;
+      color: black;
     }
     .hero {
       text-align: center;
-      padding: 100px 20px;
-      background-color: #0078d7;
-      color: white;
+      padding: 50px 20px;
     }
     .hero h1 {
       font-size: 3em;
-      margin-bottom: 20px;
+      font-weight: bold;
     }
     .hero p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-    }
-    .hero a {
-      text-decoration: none;
-      color: white;
-      background-color: #005bb5;
-      padding: 15px 30px;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    .hero a:hover {
-      background-color: #003f8c;
+      font-size: 1.5em;
+      font-weight: bold;
     }
     .features {
       display: flex;
       justify-content: space-around;
-      padding: 50px 20px;
+      padding: 30px 20px;
     }
     .feature {
       text-align: center;
       max-width: 300px;
     }
     .feature h3 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
+      font-size: 1.8em;
+      font-weight: bold;
     }
     .feature p {
-      font-size: 1em;
-      color: #666;
+      font-size: 1.2em;
+      font-weight: bold;
     }
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #333;
-      color: white;
     }
   </style>
 </head>
 
 <body>
 
-  <%- include ("../partials/nav.ejs") %>
-
   <div class="hero">
-    <h1>Total Cost of Ownership Calculator</h1>
-    <p>Effortlessly calculate the true cost of ownership for your assets with our Chrome Extension.</p>
-    <a href="https://chrome.google.com/webstore" target="_blank">Get the Extension</a>
+    <h1>Total Cost Calculator</h1>
+    <p>Calculate ownership costs easily.</p>
   </div>
 
   <div class="features">
     <div class="feature">
-      <h3>Accurate Calculations</h3>
-      <p>Get precise insights into the total cost of ownership for any asset.</p>
+      <h3>Accurate</h3>
+      <p>Precise cost insights.</p>
     </div>
     <div class="feature">
-      <h3>Easy to Use</h3>
-      <p>Simple and intuitive interface designed for everyone.</p>
+      <h3>Simple</h3>
+      <p>Easy to use interface.</p>
     </div>
     <div class="feature">
-      <h3>Save Time</h3>
-      <p>Quickly calculate costs without the need for complex spreadsheets.</p>
+      <h3>Fast</h3>
+      <p>Quick calculations.</p>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2025 Total Cost of Ownership Calculator. All rights reserved.</p>
+    <p>&copy; 2025 Total Cost Calculator.</p>
   </footer>
 
 </body>
