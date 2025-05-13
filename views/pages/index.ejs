@@ -6,12 +6,13 @@
   <title>CostTracker - Every Cost Counts</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Base Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: "Inter", sans-serif;
       color: white;
@@ -19,19 +20,19 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    
+
     .site-container {
       position: relative;
       min-height: 100vh;
     }
-    
+
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
-    
+
     /* Background Image */
     .background-image {
       position: absolute;
@@ -41,43 +42,203 @@
       height: 100%;
       z-index: 0;
     }
-    
+
     .background-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       opacity: 0.6;
     }
-    
+
     /* Header & Navigation */
     .header {
       position: relative;
       z-index: 10;
       padding: 24px 0;
     }
-    
+
     .nav-wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .logo {
       font-size: 24px;
       font-weight: 700;
       color: white;
       text-decoration: none;
     }
-    
+
     .main-nav {
       display: none;
     }
-    
+
     @media (min-width: 768px) {
       .main-nav {
         display: flex;
         align-items: center;
       }
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-right: 32px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .book-demo-btn {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 24px;
+      border: 1px solid white;
+      transition: all 0.3s ease;
+    }
+
+    .book-demo-btn:hover {
+      background-color: white;
+      color: black;
+    }
+
+    .mobile-menu-btn {
+      display: block;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    /* Main Content */
+    .main-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      .main-content {
+        min-height: 80vh;
+        padding: 0;
+      }
+    }
+
+    .headline {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        font-size: 80px;
+      }
+    }
+
+    .description {
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .description {
+        font-size: 22px;
+      }
+    }
+
+    .about-us-btn {
+      display: inline-flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border: 1px solid white;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+
+    .about-us-btn svg {
+      margin-left: 8px;
+    }
+
+    .about-us-btn:hover {
+      background-color: white;
+      color: black;
+    }
+
+    /* Cookie Notice */
+    .cookie-notice {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 16px;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cookie-text {
+      font-size: 14px;
+      max-width: 100%;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .cookie-text {
+        max-width: 75%;
+        margin-bottom: 0;
+      }
+    }
+
+    .understand-btn {
+      display: inline-flex;
+      align-items: center;
+      background: none;
+      color: white;
+      border: 1px solid white;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .understand-btn svg {
+      margin-left: 8px;
+    }
+
+    .understand-btn:hover {
+      background-color: white;
+      color: black;
     }
   </style>
 </head>
@@ -85,7 +246,7 @@
   <div class="site-container">
     <!-- Background Image -->
     <div class="background-image">
-      <img src="city-aerial.jpg" alt="Aerial view of city buildings">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-13%20at%2017.49.11.png-y0XAzvN0EHhC09Lm4Wp1GfjgASNsdG.jpeg" alt="Aerial view of city buildings">
     </div>
 
     <!-- Navigation -->
@@ -144,12 +305,11 @@
       <button class="understand-btn">
         <span>I UNDERSTAND</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </button>
     </div>
   </div>
 </body>
 </html>
-
