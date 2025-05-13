@@ -6,41 +6,46 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: white;
-      color: black;
+      background-color: black;
+      color: white;
     }
     .hero {
       text-align: center;
-      padding: 50px 20px;
+      padding: 100px 20px;
+      background-image: url('/public/lang-logo.png');
+      background-size: cover;
+      background-position: center;
+      color: white;
     }
     .hero h1 {
-      font-size: 3em;
+      font-size: 4em;
       font-weight: bold;
+      text-transform: uppercase;
     }
     .hero p {
       font-size: 1.5em;
-      font-weight: bold;
+      font-weight: normal;
     }
-    .features {
-      display: flex;
-      justify-content: space-around;
-      padding: 30px 20px;
+    .cta {
+      margin-top: 20px;
     }
-    .feature {
-      text-align: center;
-      max-width: 300px;
-    }
-    .feature h3 {
-      font-size: 1.8em;
-      font-weight: bold;
-    }
-    .feature p {
+    .cta a {
+      text-decoration: none;
+      color: white;
+      border: 2px solid white;
+      padding: 10px 20px;
+      border-radius: 5px;
       font-size: 1.2em;
-      font-weight: bold;
+    }
+    .cta a:hover {
+      background-color: white;
+      color: black;
     }
     footer {
       text-align: center;
       padding: 20px;
+      background-color: #333;
+      color: white;
     }
   </style>
 </head>
@@ -48,27 +53,15 @@
 <body>
 
   <div class="hero">
-    <h1>Total Cost Calculator</h1>
-    <p>Calculate ownership costs easily.</p>
-  </div>
-
-  <div class="features">
-    <div class="feature">
-      <h3>Accurate</h3>
-      <p>Precise cost insights.</p>
-    </div>
-    <div class="feature">
-      <h3>Simple</h3>
-      <p>Easy to use interface.</p>
-    </div>
-    <div class="feature">
-      <h3>Fast</h3>
-      <p>Quick calculations.</p>
+    <h1>Every Transaction Counts</h1>
+    <p>Doconomy partners with financial institutions to drive positive impact on a global scale by offering innovative banking tools supported by human-centric design, behavioral science, and superior data.</p>
+    <div class="cta">
+      <a href="#">About Us</a>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2025 Total Cost Calculator.</p>
+    <p>&copy; 2025 Doconomy.</p>
   </footer>
 
 </body>
