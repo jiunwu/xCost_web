@@ -1,68 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CostTracker - Every Cost Counts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Inter", sans-serif;
+      color: white;
       background-color: black;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .site-container {
+      position: relative;
+      min-height: 100vh;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Background Image */
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .background-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+    
+    /* Header & Navigation */
+    .header {
+      position: relative;
+      z-index: 10;
+      padding: 24px 0;
+    }
+    
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
       color: white;
-    }
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-      background-image: url('/public/lang-logo.png');
-      background-size: cover;
-      background-position: center;
-      color: white;
-    }
-    .hero h1 {
-      font-size: 4em;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .hero p {
-      font-size: 1.5em;
-      font-weight: normal;
-    }
-    .cta {
-      margin-top: 20px;
-    }
-    .cta a {
       text-decoration: none;
-      color: white;
-      border: 2px solid white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 1.2em;
     }
-    .cta a:hover {
-      background-color: white;
-      color: black;
+    
+    .main-nav {
+      display: none;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #333;
-      color: white;
+    
+    @media (min-width: 768px) {
+      .main-nav {
+        display: flex;
+        align-items: center;
+      }
     }
   </style>
 </head>
-
 <body>
+  <div class="site-container">
+    <!-- Background Image -->
+    <div class="background-image">
+      <img src="city-aerial.jpg" alt="Aerial view of city buildings">
+    </div>
 
-  <div class="hero">
-    <h1>Every Transaction Counts</h1>
-    <p>Doconomy partners with financial institutions to drive positive impact on a global scale by offering innovative banking tools supported by human-centric design, behavioral science, and superior data.</p>
-    <div class="cta">
-      <a href="#">About Us</a>
+    <!-- Navigation -->
+    <header class="header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="/" class="logo">CostTracker</a>
+          <nav class="main-nav">
+            <a href="#solutions" class="nav-link">SOLUTIONS</a>
+            <a href="#products" class="nav-link">PRODUCTS</a>
+            <a href="#expertise" class="nav-link">EXPERTISE</a>
+            <a href="#resources" class="nav-link">RESOURCES</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#demo" class="book-demo-btn">BOOK DEMO</a>
+          </nav>
+          <button class="mobile-menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <h1 class="headline">
+          EVERY<br>
+          COST<br>
+          COUNTS
+        </h1>
+        <p class="description">
+          CostTracker partners with consumers to drive smarter purchasing decisions by offering
+          an innovative browser extension that calculates the total cost of ownership for products,
+          supported by data-driven insights and long-term value analysis.
+        </p>
+        <a href="#about-us" class="about-us-btn">
+          <span>ABOUT US</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </main>
+
+    <!-- Cookie Notice -->
+    <div class="cookie-notice">
+      <p class="cookie-text">
+        We use cookies to ensure that we give you the best experience on our website. If you continue to use this site
+        we will assume that you are happy with it.
+      </p>
+      <button class="understand-btn">
+        <span>I UNDERSTAND</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
     </div>
   </div>
-
-  <footer>
-    <p>&copy; 2025 Doconomy.</p>
-  </footer>
-
 </body>
 </html>
+
