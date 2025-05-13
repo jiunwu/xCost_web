@@ -14,6 +14,11 @@ app.get('/', (req, res) => {
   res.render('pages/index')
 })
 
+app.get('/main', (req, res) => {
+  console.log(`Rendering 'pages/saved_items' for route '/main'`)
+  res.render('pages/saved_items')
+})
+
 const server = app.listen(port, () => {
   console.log(`Listening on ${port}`)
 })
