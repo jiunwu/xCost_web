@@ -19,6 +19,29 @@ if (isProduction) {
   })
 }
 
+// Initialize database schema
+async function initializeDatabaseSchema() {
+  if (isProduction && pool) {
+    try {
+      console.log('Checking and initializing database schema...')
+      
+      // Create saved_items table if it doesn't exist
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS saved_items (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(255) NOT NULL,
+          description TEXT NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `)
+      
+      console.log('Database schema initialized successfully')
+    } catch (err) {
+      console.error('Error initializing database schema:', err)
+    }
+  }
+}
+
 // Mock data for local development
 const mockSavedItems = [
   { id: 1, name: 'Item 1', description: 'Description for item 1' },
@@ -249,6 +272,8 @@ app.delete('/api/items/:id', async (req, res) => {
 
 const server = app.listen(port, () => {
   console.log(`Listening on ${port}`)
+  // Initialize database schema when server starts
+  initializeDatabaseSchema()
 })
 
 // Clean shutdown
