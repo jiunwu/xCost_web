@@ -272,7 +272,6 @@ app.delete('/api/items/:id', async (req, res) => {
 
 const server = app.listen(port, () => {
   console.log(`Listening on ${port}`)
-  // Initialize database schema when server starts
   initializeDatabaseSchema()
 })
 
