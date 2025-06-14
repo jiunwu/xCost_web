@@ -120,6 +120,7 @@ async function getItemById(id) {
 async function createItem(item) {
   if (isProduction && pool) {
     try {
+      // Convert camelCase to snake_case for database fields
       const result = await pool.query(
         `INSERT INTO saved_items(
           name, description, product_type, price, material, quality,
@@ -129,16 +130,16 @@ async function createItem(item) {
         [
           item.name,
           item.description,
-          item.productType,
+          item.productType || item.product_type, // Handle both camelCase and snake_case
           item.price,
           item.material,
           item.quality,
           item.lifespan,
-          item.annualCost,
-          item.maintenanceCostPerYear,
-          item.totalMaintenanceCost,
-          item.totalLifetimeCost,
-          JSON.stringify(item.calculationResults)
+          item.annualCost || item.annual_cost,
+          item.maintenanceCostPerYear || item.maintenance_cost_per_year,
+          item.totalMaintenanceCost || item.total_maintenance_cost,
+          item.totalLifetimeCost || item.total_lifetime_cost,
+          JSON.stringify(item.calculationResults || item.calculation_results)
         ]
       )
       return result.rows[0]
