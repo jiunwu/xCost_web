@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore - xCost</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="/" class="sidebar-logo">xCost</a>
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/explore" class="nav-item active">
+        <i class="fas fa-compass"></i>
+        <span>Explore</span>
+      </a>
+      <a href="/saved-items" class="nav-item">
+        <i class="fas fa-bookmark"></i>
+        <span>Saved Items</span>
+      </a>
+      <a href="/profile" class="nav-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/settings" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <h1 class="headline">Explore Products</h1>
+      
+      <!-- Search Section -->
+      <div class="search-section">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search for products to analyze..." id="searchInput">
+          <button class="search-btn">Search</button>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters">
+          <select class="filter-select" id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="appliances">Appliances</option>
+            <option value="furniture">Furniture</option>
+            <option value="automotive">Automotive</option>
+            <option value="clothing">Clothing</option>
+          </select>
+          
+          <select class="filter-select" id="priceFilter">
+            <option value="">Any Price</option>
+            <option value="0-100">€0 - €100</option>
+            <option value="100-500">€100 - €500</option>
+            <option value="500-1000">€500 - €1,000</option>
+            <option value="1000+">€1,000+</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Popular Categories -->
+      <div class="categories-section">
+        <h3>Popular Categories</h3>
+        <div class="category-grid">
+          <div class="category-card" data-category="electronics">
+            <i class="fas fa-laptop"></i>
+            <h4>Electronics</h4>
+            <p>Smartphones, laptops, tablets</p>
+          </div>
+          <div class="category-card" data-category="appliances">
+            <i class="fas fa-blender"></i>
+            <h4>Appliances</h4>
+            <p>Kitchen and home appliances</p>
+          </div>
+          <div class="category-card" data-category="furniture">
+            <i class="fas fa-couch"></i>
+            <h4>Furniture</h4>
+            <p>Chairs, tables, storage</p>
+          </div>
+          <div class="category-card" data-category="automotive">
+            <i class="fas fa-car"></i>
+            <h4>Automotive</h4>
+            <p>Cars, motorcycles, parts</p>
+          </div>
+          <div class="category-card" data-category="clothing">
+            <i class="fas fa-tshirt"></i>
+            <h4>Clothing</h4>
+            <p>Fashion and accessories</p>
+          </div>
+          <div class="category-card" data-category="sports">
+            <i class="fas fa-dumbbell"></i>
+            <h4>Sports</h4>
+            <p>Fitness and outdoor gear</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Products -->
+      <div class="featured-section">
+        <h3>Featured Products</h3>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="product-info">
+              <h4>iPhone 15 Pro</h4>
+              <p class="product-price">€1,199.00</p>
+              <p class="product-description">Latest smartphone with advanced features</p>
+              <div class="product-actions">
+                <button class="analyze-btn">Analyze Cost</button>
+                <button class="save-btn"><i class="fas fa-bookmark"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="product-info">
+              <h4>MacBook Air M2</h4>
+              <p class="product-price">€1,399.00</p>
+              <p class="product-description">Lightweight laptop for productivity</p>
+              <div class="product-actions">
+                <button class="analyze-btn">Analyze Cost</button>
+                <button class="save-btn"><i class="fas fa-bookmark"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <i class="fas fa-car"></i>
+            </div>
+            <div class="product-info">
+              <h4>Tesla Model 3</h4>
+              <p class="product-price">€45,000.00</p>
+              <p class="product-description">Electric sedan with autopilot</p>
+              <div class="product-actions">
+                <button class="analyze-btn">Analyze Cost</button>
+                <button class="save-btn"><i class="fas fa-bookmark"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="how-it-works">
+        <h3>How It Works</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>Find a Product</h4>
+            <p>Search or browse products you're interested in</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>Analyze Costs</h4>
+            <p>Our AI calculates total cost of ownership</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Make Smart Decisions</h4>
+            <p>Compare options and choose wisely</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    document.querySelector('.search-btn').addEventListener('click', performSearch);
+
+    function performSearch() {
+      const query = document.getElementById('searchInput').value;
+      if (query.trim()) {
+        alert('Search functionality coming soon! You searched for: ' + query);
+      }
+    }
+
+    // Category selection
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const category = this.dataset.category;
+        alert('Category filter coming soon! Selected: ' + category);
+      });
+    });
+
+    // Product actions
+    document.querySelectorAll('.analyze-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('Cost analysis feature coming soon!');
+      });
+    });
+
+    document.querySelectorAll('.save-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('Save feature coming soon!');
+      });
+    });
+  </script>
+</body>
+</html>

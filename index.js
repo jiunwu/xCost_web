@@ -241,9 +241,23 @@ app.get('/', (req, res) => {
   res.render('pages/index')
 })
 
-app.get('/main', (req, res) => {
-  console.log(`Rendering 'pages/saved_items' for route '/main'`)
-  
+app.get('/home', (req, res) => {
+  console.log(`Rendering 'pages/home' for route '/home'`)
+  res.render('pages/home')
+})
+
+app.get('/explore', (req, res) => {
+  console.log(`Rendering 'pages/explore' for route '/explore'`)
+  res.render('pages/explore')
+})
+
+app.get('/profile', (req, res) => {
+  console.log(`Rendering 'pages/profile' for route '/profile'`)
+  res.render('pages/profile')
+})
+
+app.get('/saved-items', async (req, res) => {
+  console.log(`Rendering 'pages/saved_items' for route '/saved-items'`)
   getSavedItems()
     .then(savedItems => {
       res.render('pages/saved_items', { items: savedItems || [] })
@@ -252,23 +266,6 @@ app.get('/main', (req, res) => {
       console.error('Error retrieving saved items:', err)
       res.render('pages/saved_items', { items: [] })
     })
-})
-
-app.get('/saved-items', async (req, res) => {
-  try {
-    const items = await getSavedItems()
-    res.render('pages/saved_items', { 
-      items: items || [],
-      title: 'Saved Items'
-    });
-  } catch (error) {
-    console.error('Error fetching saved items:', error);
-    res.render('pages/saved_items', { 
-      items: [],
-      title: 'Saved Items',
-      error: 'Failed to load saved items'
-    });
-  }
 })
 
 // Legal pages routes

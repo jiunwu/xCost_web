@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - xCost</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="/" class="sidebar-logo">xCost</a>
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/explore" class="nav-item">
+        <i class="fas fa-compass"></i>
+        <span>Explore</span>
+      </a>
+      <a href="/saved-items" class="nav-item">
+        <i class="fas fa-bookmark"></i>
+        <span>Saved Items</span>
+      </a>
+      <a href="/profile" class="nav-item active">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/settings" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <h1 class="headline">Your Profile</h1>
+      
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="profile-info">
+          <h2>Guest User</h2>
+          <p class="profile-email">guest@xcost.com</p>
+          <p class="profile-joined">Joined December 2024</p>
+        </div>
+        <button class="edit-profile-btn">
+          <i class="fas fa-edit"></i>
+          Edit Profile
+        </button>
+      </div>
+
+      <!-- Stats Overview -->
+      <div class="stats-overview">
+        <h3>Your Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <i class="fas fa-bookmark"></i>
+            <div class="stat-info">
+              <div class="stat-number">0</div>
+              <div class="stat-label">Saved Items</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-calculator"></i>
+            <div class="stat-info">
+              <div class="stat-number">0</div>
+              <div class="stat-label">Analyses Performed</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-piggy-bank"></i>
+            <div class="stat-info">
+              <div class="stat-number">€0</div>
+              <div class="stat-label">Total Savings</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-chart-line"></i>
+            <div class="stat-info">
+              <div class="stat-number">0</div>
+              <div class="stat-label">Recommendations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div class="preferences-section">
+        <h3>Preferences</h3>
+        <div class="preference-card">
+          <h4>Currency</h4>
+          <select class="preference-select">
+            <option value="EUR">Euro (€)</option>
+            <option value="USD">US Dollar ($)</option>
+            <option value="GBP">British Pound (£)</option>
+            <option value="CHF">Swiss Franc (Fr.)</option>
+          </select>
+        </div>
+        
+        <div class="preference-card">
+          <h4>Default Analysis Period</h4>
+          <select class="preference-select">
+            <option value="5">5 years</option>
+            <option value="3">3 years</option>
+            <option value="7">7 years</option>
+            <option value="10">10 years</option>
+          </select>
+        </div>
+
+        <div class="preference-card">
+          <h4>Notifications</h4>
+          <div class="toggle-group">
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+              Price drop alerts
+            </label>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+              New product recommendations
+            </label>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle-slider"></span>
+              Weekly savings summary
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="activity-section">
+        <h3>Recent Activity</h3>
+        <div class="activity-timeline">
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Account Created</h4>
+              <p>Welcome to xCost! Your account has been successfully created.</p>
+              <span class="activity-time">Just now</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Actions -->
+      <div class="account-actions">
+        <h3>Account Actions</h3>
+        <div class="action-buttons">
+          <button class="action-btn secondary">
+            <i class="fas fa-download"></i>
+            Export Data
+          </button>
+          <button class="action-btn secondary">
+            <i class="fas fa-shield-alt"></i>
+            Privacy Settings
+          </button>
+          <button class="action-btn danger">
+            <i class="fas fa-trash"></i>
+            Delete Account
+          </button>
+        </div>
+      </div>
+
+      <!-- Extension Status -->
+      <div class="extension-status">
+        <h3>Browser Extension</h3>
+        <div class="extension-card">
+          <div class="extension-info">
+            <i class="fas fa-puzzle-piece"></i>
+            <div>
+              <h4>xCost Extension</h4>
+              <p>Status: Not Installed</p>
+            </div>
+          </div>
+          <button class="install-extension-btn">
+            <i class="fas fa-download"></i>
+            Install Extension
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Edit profile functionality
+    document.querySelector('.edit-profile-btn').addEventListener('click', function() {
+      alert('Edit profile functionality coming soon!');
+    });
+
+    // Preference changes
+    document.querySelectorAll('.preference-select').forEach(select => {
+      select.addEventListener('change', function() {
+        alert('Preferences will be saved automatically. Feature coming soon!');
+      });
+    });
+
+    // Toggle switches
+    document.querySelectorAll('.toggle input').forEach(toggle => {
+      toggle.addEventListener('change', function() {
+        console.log('Toggle changed:', this.parentElement.textContent.trim(), this.checked);
+      });
+    });
+
+    // Action buttons
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.textContent.trim();
+        if (action.includes('Delete')) {
+          if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            alert('Account deletion feature coming soon!');
+          }
+        } else {
+          alert(action + ' feature coming soon!');
+        }
+      });
+    });
+
+    // Extension install
+    document.querySelector('.install-extension-btn').addEventListener('click', function() {
+      alert('Browser extension download coming soon!');
+    });
+  </script>
+</body>
+</html>
