@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const { Pool } = require('pg')
+const cors = require('cors')
 
 const port = process.env.PORT || 5006
 
@@ -61,8 +62,24 @@ const mockSavedItems = [
 
 const app = express()
 
-// Middleware
-app.use(express.static(path.join(__dirname, 'public')))
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'https://www.tutti.ch',
+    'https://tutti.ch',
+    'https://*.tutti.ch',
+    'https://www.zara.com',
+    'https://*.saturn.de',
+    'https://www.digitec.ch',
+    'https://*.digitec.ch',
+    'chrome-extension://*'  // Allow all Chrome extensions
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json()) // Add middleware to parse JSON bodies
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
