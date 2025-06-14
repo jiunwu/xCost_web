@@ -3,304 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>xCost - Your Saved Items</title>
+  <title>Saved Items - XCost</title>
+      <link rel="stylesheet" href="/stylesheets/saved_items.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Add Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    /* Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      color: white;
-      background-color: black;
-      min-height: 100vh;
-      overflow-x: hidden;
-      display: flex;
-    }
-
-    /* Instagram-style Sidebar */
-    .sidebar {
-      width: 220px;
-      height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
-      background-color: #000;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 20px 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar-logo {
-      font-size: 24px;
-      font-weight: 700;
-      padding: 10px 20px 30px;
-      display: block;
-      text-decoration: none;
-      color: white;
-    }
-
-    .sidebar-nav {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      border-radius: 8px;
-      margin: 0 8px 8px;
-    }
-
-    .nav-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-item.active {
-      font-weight: 600;
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-item i {
-      font-size: 20px;
-      margin-right: 12px;
-      width: 24px;
-      text-align: center;
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
-      padding: 20px;
-    }
-
-    /* Main Content */
-    .main-content {
-      flex: 1;
-      margin-left: 220px;
-      width: calc(100% - 220px);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .headline {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-
-    .saved-items-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .saved-item {
-      font-size: 18px;
-      margin-bottom: 16px;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .item-content {
-      flex: 1;
-    }
-
-    .item-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn {
-      background-color: transparent;
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 4px;
-    }
-
-    .btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn.edit {
-      color: #3498db;
-    }
-
-    .btn.delete {
-      color: #e74c3c;
-    }
-
-    /* Form styling */
-    .form-container {
-      margin-bottom: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .form-title {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      color: white;
-      font-family: inherit;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .form-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-submit {
-      padding: 10px 20px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .btn-cancel {
-      padding: 10px 20px;
-      background-color: transparent;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .btn-submit:hover {
-      background-color: #2980b9;
-    }
-
-    .btn-cancel:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Loading and error states */
-    .loading, .error {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .loading i {
-      font-size: 24px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error {
-      color: #e74c3c;
-    }
-
-    /* Delete button styling */
-    .delete-btn {
-      margin-left: 8px;
-      padding: 8px;
-      background-color: transparent;
-      border: none;
-      color: #dc2626;
-      cursor: pointer;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      transition: all 0.2s ease;
-    }
-
-    .delete-btn:hover {
-      background-color: rgba(220, 38, 38, 0.1);
-      color: #991b1b;
-    }
-
-    .delete-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* Media Query for Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 70px;
-      }
-
-      .sidebar-logo {
-        font-size: 20px;
-        padding: 10px;
-        text-align: center;
-      }
-
-      .nav-item span {
-        display: none;
-      }
-
-      .nav-item i {
-        margin-right: 0;
-      }
-
-      .main-content {
-        margin-left: 70px;
-        width: calc(100% - 70px);
-      }
-    }
-  </style>
 </head>
 <body>
   <!-- Instagram-style Sidebar -->
@@ -343,257 +50,194 @@
   <!-- Main Content -->
   <div class="main-content">
     <div class="container">
-      <h1 class="headline">Saved Products</h1>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% savedItems.forEach(item => { %>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300" data-item-id="<%= item.id %>">
-            <div class="p-6">
-              <div class="flex justify-between items-start mb-4">
-                <h2 class="text-xl font-semibold text-gray-800"><%= item.name %></h2>
-                <div class="flex items-center gap-2">
-                  <span class="px-3 py-1 text-sm rounded-full <%= item.productType === 'car' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
-                    <%= item.productType ? (item.productType.charAt(0).toUpperCase() + item.productType.slice(1)) : '' %>
-                  </span>
-                  <button 
-                    onclick="deleteItem(<%= item.id %>)" 
-                    class="delete-btn"
-                    title="Delete item"
-                  >
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-3">
-                <!-- Description -->
-                <% if (item.description) { %>
-                  <div class="mb-4">
-                    <p class="text-gray-700 text-sm leading-relaxed"><%= item.description %></p>
-                  </div>
-                <% } %>
-
-                <!-- Price Information -->
-                <div class="bg-gray-50 p-3 rounded-lg">
-                  <h4 class="text-sm font-semibold text-gray-800 mb-2">💰 Cost Analysis</h4>
-                  <div class="space-y-2">
-                    <div class="flex justify-between">
-                      <span class="text-gray-600">Initial Price:</span>
-                      <span class="font-medium text-green-600">€<%= (typeof item.price === 'number' ? item.price.toFixed(2) : (item.price ? item.price : 'N/A')) %></span>
-                    </div>
-                    
-                    <% if (typeof item.annualCost === 'number' || typeof item.annual_cost === 'number') { %>
-                      <div class="flex justify-between">
-                        <span class="text-gray-600">Annual Cost:</span>
-                        <span class="font-medium text-orange-600">€<%= ((item.annualCost || item.annual_cost)).toFixed(2) %></span>
-                      </div>
-                    <% } %>
-
-                    <% if (typeof item.totalLifetimeCost === 'number' || typeof item.total_lifetime_cost === 'number') { %>
-                      <div class="flex justify-between border-t pt-2">
-                        <span class="text-gray-600 font-semibold">Total Lifetime Cost:</span>
-                        <span class="font-bold text-red-600">€<%= ((item.totalLifetimeCost || item.total_lifetime_cost)).toFixed(2) %></span>
-                      </div>
-                    <% } %>
-
-                    <% if (typeof item.maintenanceCostPerYear === 'number' || typeof item.maintenance_cost_per_year === 'number') { %>
-                      <div class="flex justify-between">
-                        <span class="text-gray-600">Maintenance/Year:</span>
-                        <span class="font-medium text-blue-600">€<%= ((item.maintenanceCostPerYear || item.maintenance_cost_per_year)).toFixed(2) %></span>
-                      </div>
-                    <% } %>
-                  </div>
-                </div>
-
-                <!-- Product Details -->
-                <% if (item.lifespan || item.quality || item.material) { %>
-                  <div class="bg-blue-50 p-3 rounded-lg">
-                    <h4 class="text-sm font-semibold text-gray-800 mb-2">📋 Product Details</h4>
-                    <div class="space-y-2">
-                      <% if (typeof item.lifespan !== 'undefined' && item.lifespan !== null) { %>
-                        <div class="flex justify-between">
-                          <span class="text-gray-600">Expected Lifespan:</span>
-                          <span class="font-medium"><%= item.lifespan %> years</span>
-                        </div>
-                      <% } %>
-
-                      <% if (item.quality) { %>
-                        <div class="flex justify-between">
-                          <span class="text-gray-600">Quality Rating:</span>
-                          <span class="font-medium">
-                            <% if (item.quality === 'high') { %>
-                              <span class="text-green-600">⭐⭐⭐ High</span>
-                            <% } else if (item.quality === 'medium') { %>
-                              <span class="text-yellow-600">⭐⭐ Medium</span>
-                            <% } else if (item.quality === 'low') { %>
-                              <span class="text-red-600">⭐ Low</span>
-                            <% } else { %>
-                              <%= item.quality %>
-                            <% } %>
-                          </span>
-                        </div>
-                      <% } %>
-
-                      <% if (item.material) { %>
-                        <div class="flex justify-between">
-                          <span class="text-gray-600">Material:</span>
-                          <span class="font-medium"><%= item.material %></span>
-                        </div>
-                      <% } %>
-                    </div>
-                  </div>
-                <% } %>
-
-                <!-- Cost Breakdown -->
-                <% if (item.calculationResults || item.calculation_results) { %>
-                  <div class="bg-purple-50 p-3 rounded-lg">
-                    <h4 class="text-sm font-semibold text-gray-800 mb-2">📊 Cost Breakdown</h4>
-                    <div class="text-xs text-gray-600">
-                      <% 
-                        const calcResults = item.calculationResults || item.calculation_results;
-                        if (typeof calcResults === 'string') {
-                          try {
-                            const parsed = JSON.parse(calcResults);
-                            if (parsed.yearlyBreakdown) {
-                      %>
-                              <p>5-year projection available</p>
-                      <%    } 
-                          } catch(e) { %>
-                            <p>Calculation data available</p>
-                      <%  }
-                        } else if (calcResults && typeof calcResults === 'object') { %>
-                          <p>Detailed cost analysis available</p>
-                      <% } %>
-                    </div>
-                  </div>
-                <% } %>
-
-                <!-- Source URL -->
-                <% if (item.url) { %>
-                  <div class="bg-green-50 p-3 rounded-lg">
-                    <h4 class="text-sm font-semibold text-gray-800 mb-2">🔗 Source</h4>
-                    <a href="<%= item.url %>" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm break-all">
-                      <%= item.url %>
-                    </a>
-                    <div class="mt-1">
-                      <a href="<%= item.url %>" target="_blank" class="inline-flex items-center text-xs text-blue-600 hover:text-blue-800">
-                        <span>View original listing</span>
-                        <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                <% } %>
-              </div>
-
-              <div class="mt-6 pt-4 border-t border-gray-200">
-                <div class="flex justify-between items-center">
-                  <span class="text-sm text-gray-500">
-                    Saved on <%
-                      let dateToShow = 'Unknown date';
-                      if (item.createdAt || item.created_at) {
-                        try {
-                          const dateValue = item.createdAt || item.created_at;
-                          const date = new Date(dateValue);
-                          if (!isNaN(date.getTime())) {
-                            dateToShow = date.toLocaleDateString();
-                          }
-                        } catch (e) {
-                          // Keep default value
-                        }
-                      }
-                    %><%= dateToShow %>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% }); %>
-      </div>
-
-      <% if (savedItems.length === 0) { %>
-        <div class="text-center py-12">
-          <div class="text-gray-400 mb-4">
-            <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <h1 class="headline">Saved Items</h1>
+      
+      <% if (!Array.isArray(items) || items.length === 0) { %>
+        <div class="no-items-container">
+          <div class="no-items-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">No saved items yet</h3>
-          <p class="text-gray-500">Start saving products to see them here</p>
+          <h2>No Saved Items</h2>
+          <p>You haven't saved any items yet. Start saving items to see them here.</p>
+          <a href="/" class="btn-submit">
+            Go to Homepage
+          </a>
+        </div>
+      <% } else { %>
+        <div class="saved-items-grid">
+          <% items.forEach(item => { %>
+            <div class="saved-item-card">
+              <div class="saved-item-header">
+                <h2 class="saved-item-title"><%= item.name %></h2>
+                <span class="saved-item-date">
+                  <%= new Date(item.created_at).toLocaleDateString() %>
+                </span>
+              </div>
+              
+              <p class="saved-item-description"><%= item.description %></p>
+              
+              <div class="saved-item-details">
+                <div class="saved-item-detail">
+                  <span class="saved-item-label">Type:</span>
+                  <span class="saved-item-value"><%= item.product_type %></span>
+                </div>
+                <div class="saved-item-detail">
+                  <span class="saved-item-label">Price:</span>
+                  <span class="saved-item-value">CHF <%= item.price.toLocaleString() %></span>
+                </div>
+                <% if (item.material) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Material:</span>
+                    <span class="saved-item-value"><%= item.material %></span>
+                  </div>
+                <% } %>
+                <% if (item.quality) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Quality:</span>
+                    <span class="saved-item-value"><%= item.quality %></span>
+                  </div>
+                <% } %>
+                <% if (item.lifespan) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Lifespan:</span>
+                    <span class="saved-item-value"><%= item.lifespan %> years</span>
+                  </div>
+                <% } %>
+                <% if (item.annual_cost) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Annual Cost:</span>
+                    <span class="saved-item-value">CHF <%= item.annual_cost.toLocaleString() %></span>
+                  </div>
+                <% } %>
+                <% if (item.maintenance_cost_per_year) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Maintenance Cost/Year:</span>
+                    <span class="saved-item-value">CHF <%= item.maintenance_cost_per_year.toLocaleString() %></span>
+                  </div>
+                <% } %>
+                <% if (item.total_maintenance_cost) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Total Maintenance:</span>
+                    <span class="saved-item-value">CHF <%= item.total_maintenance_cost.toLocaleString() %></span>
+                  </div>
+                <% } %>
+                <% if (item.total_lifetime_cost) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Total Lifetime Cost:</span>
+                    <span class="saved-item-value">CHF <%= item.total_lifetime_cost.toLocaleString() %></span>
+                  </div>
+                <% } %>
+                <% if (item.url) { %>
+                  <div class="saved-item-detail">
+                    <span class="saved-item-label">Source:</span>
+                    <a href="<%= item.url %>" target="_blank" class="saved-item-link">
+                      <%= item.url %>
+                    </a>
+                  </div>
+                <% } %>
+              </div>
+
+              <% if (item.calculation_results) { %>
+                <div class="saved-item-calculations">
+                  <h3 class="saved-item-calculations-title">Calculation Details</h3>
+                  <div class="saved-item-calculations-details">
+                    <% if (item.calculation_results.make) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Make:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.make %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.model) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Model:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.model %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.year) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Year:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.year %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.mileage) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Mileage:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.mileage.toLocaleString() %> km</span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.fuelType) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Fuel Type:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.fuelType %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.fuelConsumption) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Fuel Consumption:</span>
+                        <span class="saved-item-value"><%= item.calculation_results.fuelConsumption %> L/100km</span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.annualFuelCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Annual Fuel Cost:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.annualFuelCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.annualInsuranceCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Annual Insurance:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.annualInsuranceCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.annualTaxCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Annual Tax:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.annualTaxCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.annualMaintenanceCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Annual Maintenance:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.annualMaintenanceCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.totalRunningCostsNPV) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Total Running Costs:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.totalRunningCostsNPV.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.estimatedResaleValue) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Estimated Resale Value:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.estimatedResaleValue.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.depreciationCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Depreciation Cost:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.depreciationCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                    <% if (item.calculation_results.monthlyCost) { %>
+                      <div class="saved-item-detail">
+                        <span class="saved-item-label">Monthly Cost:</span>
+                        <span class="saved-item-value">CHF <%= item.calculation_results.monthlyCost.toLocaleString() %></span>
+                      </div>
+                    <% } %>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          <% }); %>
         </div>
       <% } %>
     </div>
   </div>
 
-  <!-- JavaScript for delete functionality -->
-  <script>
-    async function deleteItem(itemId) {
-      if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
-        return;
-      }
-
-      try {
-        const response = await fetch(`/api/items/${itemId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          // Remove the item from the DOM
-          const itemElement = document.querySelector(`[data-item-id="${itemId}"]`);
-          if (itemElement) {
-            itemElement.style.transition = 'opacity 0.3s ease-out';
-            itemElement.style.opacity = '0';
-            setTimeout(() => {
-              itemElement.remove();
-              
-              // Check if there are no items left
-              const remainingItems = document.querySelectorAll('[data-item-id]');
-              if (remainingItems.length === 0) {
-                location.reload(); // Reload to show "no items" message
-              }
-            }, 300);
-          }
-          
-          // Show success message
-          showMessage('Item deleted successfully', 'success');
-        } else {
-          showMessage(result.error || 'Failed to delete item', 'error');
-        }
-      } catch (error) {
-        console.error('Error deleting item:', error);
-        showMessage('An error occurred while deleting the item', 'error');
-      }
-    }
-
-    function showMessage(message, type) {
-      // Create a simple toast notification
-      const toast = document.createElement('div');
-      toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
-        type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-      }`;
-      toast.textContent = message;
-      
-      document.body.appendChild(toast);
-      
-      // Remove the toast after 3 seconds
-      setTimeout(() => {
-        toast.style.transition = 'opacity 0.3s ease-out';
-        toast.style.opacity = '0';
-        setTimeout(() => {
-          if (document.body.contains(toast)) {
-            document.body.removeChild(toast);
-          }
-        }, 300);
-      }, 3000);
-    }
-  </script>
+  <!-- Reference external JavaScript file -->
+  <script src="/saved-items.js"></script>
 </body>
 </html>

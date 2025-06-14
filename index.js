@@ -246,25 +246,29 @@ app.get('/main', (req, res) => {
   
   getSavedItems()
     .then(savedItems => {
-      res.render('pages/saved_items', { savedItems: savedItems })
+      res.render('pages/saved_items', { items: savedItems || [] })
     })
     .catch(err => {
       console.error('Error retrieving saved items:', err)
-      res.status(500).send('Error retrieving saved items')
+      res.render('pages/saved_items', { items: [] })
     })
 })
 
-app.get('/saved-items', (req, res) => {
-  console.log(`Rendering 'pages/saved_items' for route '/saved-items'`)
-  
-  getSavedItems()
-    .then(savedItems => {
-      res.render('pages/saved_items', { savedItems: savedItems })
-    })
-    .catch(err => {
-      console.error('Error retrieving saved items:', err)
-      res.status(500).send('Error retrieving saved items')
-    })
+app.get('/saved-items', async (req, res) => {
+  try {
+    const items = await getSavedItems()
+    res.render('pages/saved_items', { 
+      items: items || [],
+      title: 'Saved Items'
+    });
+  } catch (error) {
+    console.error('Error fetching saved items:', error);
+    res.render('pages/saved_items', { 
+      items: [],
+      title: 'Saved Items',
+      error: 'Failed to load saved items'
+    });
+  }
 })
 
 // Legal pages routes
