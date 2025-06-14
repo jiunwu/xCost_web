@@ -325,7 +325,7 @@
               <div class="flex justify-between items-start mb-4">
                 <h2 class="text-xl font-semibold text-gray-800"><%= item.name %></h2>
                 <span class="px-3 py-1 text-sm rounded-full <%= item.productType === 'car' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
-                  <%= item.productType.charAt(0).toUpperCase() + item.productType.slice(1) %>
+                  <%= item.productType ? (item.productType.charAt(0).toUpperCase() + item.productType.slice(1)) : '' %>
                 </span>
               </div>
 
