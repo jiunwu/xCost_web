@@ -31,6 +31,16 @@ async function initializeDatabaseSchema() {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
+          product_type VARCHAR(50),
+          price DECIMAL(10,2),
+          material VARCHAR(100),
+          quality VARCHAR(50),
+          lifespan INTEGER,
+          annual_cost DECIMAL(10,2),
+          maintenance_cost_per_year DECIMAL(10,2),
+          total_maintenance_cost DECIMAL(10,2),
+          total_lifetime_cost DECIMAL(10,2),
+          calculation_results JSONB,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
       `)
@@ -94,8 +104,25 @@ async function createItem(item) {
   if (isProduction && pool) {
     try {
       const result = await pool.query(
-        'INSERT INTO saved_items(name, description) VALUES($1, $2) RETURNING *',
-        [item.name, item.description]
+        `INSERT INTO saved_items(
+          name, description, product_type, price, material, quality,
+          lifespan, annual_cost, maintenance_cost_per_year,
+          total_maintenance_cost, total_lifetime_cost, calculation_results
+        ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+        [
+          item.name,
+          item.description,
+          item.productType,
+          item.price,
+          item.material,
+          item.quality,
+          item.lifespan,
+          item.annualCost,
+          item.maintenanceCostPerYear,
+          item.totalMaintenanceCost,
+          item.totalLifetimeCost,
+          JSON.stringify(item.calculationResults)
+        ]
       )
       return result.rows[0]
     } catch (err) {
