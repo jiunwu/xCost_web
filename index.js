@@ -189,6 +189,17 @@ app.get('/saved-items', (req, res) => {
     })
 })
 
+// Legal pages routes
+app.get('/privacy', (req, res) => {
+  console.log(`Rendering 'pages/privacy' for route '/privacy'`)
+  res.render('pages/privacy')
+})
+
+app.get('/terms', (req, res) => {
+  console.log(`Rendering 'pages/terms' for route '/terms'`)
+  res.render('pages/terms')
+})
+
 // API Routes
 // GET all items
 app.get('/api/items', async (req, res) => {
