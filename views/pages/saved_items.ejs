@@ -368,52 +368,123 @@
               </div>
 
               <div class="space-y-3">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">Price:</span>
-                  <span class="font-medium">€<%= (typeof item.price === 'number' ? item.price.toFixed(2) : (item.price ? item.price : 'N/A')) %></span>
+                <!-- Description -->
+                <% if (item.description) { %>
+                  <div class="mb-4">
+                    <p class="text-gray-700 text-sm leading-relaxed"><%= item.description %></p>
+                  </div>
+                <% } %>
+
+                <!-- Price Information -->
+                <div class="bg-gray-50 p-3 rounded-lg">
+                  <h4 class="text-sm font-semibold text-gray-800 mb-2">💰 Cost Analysis</h4>
+                  <div class="space-y-2">
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Initial Price:</span>
+                      <span class="font-medium text-green-600">€<%= (typeof item.price === 'number' ? item.price.toFixed(2) : (item.price ? item.price : 'N/A')) %></span>
+                    </div>
+                    
+                    <% if (typeof item.annualCost === 'number' || typeof item.annual_cost === 'number') { %>
+                      <div class="flex justify-between">
+                        <span class="text-gray-600">Annual Cost:</span>
+                        <span class="font-medium text-orange-600">€<%= ((item.annualCost || item.annual_cost)).toFixed(2) %></span>
+                      </div>
+                    <% } %>
+
+                    <% if (typeof item.totalLifetimeCost === 'number' || typeof item.total_lifetime_cost === 'number') { %>
+                      <div class="flex justify-between border-t pt-2">
+                        <span class="text-gray-600 font-semibold">Total Lifetime Cost:</span>
+                        <span class="font-bold text-red-600">€<%= ((item.totalLifetimeCost || item.total_lifetime_cost)).toFixed(2) %></span>
+                      </div>
+                    <% } %>
+
+                    <% if (typeof item.maintenanceCostPerYear === 'number' || typeof item.maintenance_cost_per_year === 'number') { %>
+                      <div class="flex justify-between">
+                        <span class="text-gray-600">Maintenance/Year:</span>
+                        <span class="font-medium text-blue-600">€<%= ((item.maintenanceCostPerYear || item.maintenance_cost_per_year)).toFixed(2) %></span>
+                      </div>
+                    <% } %>
+                  </div>
                 </div>
-                
-                <% if (typeof item.lifespan !== 'undefined' && item.lifespan !== null) { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Lifespan:</span>
-                    <span class="font-medium"><%= item.lifespan %> years</span>
+
+                <!-- Product Details -->
+                <% if (item.lifespan || item.quality || item.material) { %>
+                  <div class="bg-blue-50 p-3 rounded-lg">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2">📋 Product Details</h4>
+                    <div class="space-y-2">
+                      <% if (typeof item.lifespan !== 'undefined' && item.lifespan !== null) { %>
+                        <div class="flex justify-between">
+                          <span class="text-gray-600">Expected Lifespan:</span>
+                          <span class="font-medium"><%= item.lifespan %> years</span>
+                        </div>
+                      <% } %>
+
+                      <% if (item.quality) { %>
+                        <div class="flex justify-between">
+                          <span class="text-gray-600">Quality Rating:</span>
+                          <span class="font-medium">
+                            <% if (item.quality === 'high') { %>
+                              <span class="text-green-600">⭐⭐⭐ High</span>
+                            <% } else if (item.quality === 'medium') { %>
+                              <span class="text-yellow-600">⭐⭐ Medium</span>
+                            <% } else if (item.quality === 'low') { %>
+                              <span class="text-red-600">⭐ Low</span>
+                            <% } else { %>
+                              <%= item.quality %>
+                            <% } %>
+                          </span>
+                        </div>
+                      <% } %>
+
+                      <% if (item.material) { %>
+                        <div class="flex justify-between">
+                          <span class="text-gray-600">Material:</span>
+                          <span class="font-medium"><%= item.material %></span>
+                        </div>
+                      <% } %>
+                    </div>
                   </div>
                 <% } %>
 
-                <% if (typeof item.annualCost === 'number') { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Annual Cost:</span>
-                    <span class="font-medium">€<%= item.annualCost.toFixed(2) %></span>
+                <!-- Cost Breakdown -->
+                <% if (item.calculationResults || item.calculation_results) { %>
+                  <div class="bg-purple-50 p-3 rounded-lg">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2">📊 Cost Breakdown</h4>
+                    <div class="text-xs text-gray-600">
+                      <% 
+                        const calcResults = item.calculationResults || item.calculation_results;
+                        if (typeof calcResults === 'string') {
+                          try {
+                            const parsed = JSON.parse(calcResults);
+                            if (parsed.yearlyBreakdown) {
+                      %>
+                              <p>5-year projection available</p>
+                      <%    } 
+                          } catch(e) { %>
+                            <p>Calculation data available</p>
+                      <%  }
+                        } else if (calcResults && typeof calcResults === 'object') { %>
+                          <p>Detailed cost analysis available</p>
+                      <% } %>
+                    </div>
                   </div>
                 <% } %>
 
-                <% if (typeof item.totalLifetimeCost === 'number') { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Total Lifetime Cost:</span>
-                    <span class="font-medium">€<%= item.totalLifetimeCost.toFixed(2) %></span>
-                  </div>
-                <% } %>
-
-                <% if (item.quality) { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Quality:</span>
-                    <span class="font-medium"><%= item.quality %></span>
-                  </div>
-                <% } %>
-
-                <% if (item.material) { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Material:</span>
-                    <span class="font-medium"><%= item.material %></span>
-                  </div>
-                <% } %>
-
+                <!-- Source URL -->
                 <% if (item.url) { %>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Source:</span>
-                    <a href="<%= item.url %>" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm truncate max-w-[200px]">
+                  <div class="bg-green-50 p-3 rounded-lg">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2">🔗 Source</h4>
+                    <a href="<%= item.url %>" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm break-all">
                       <%= item.url %>
                     </a>
+                    <div class="mt-1">
+                      <a href="<%= item.url %>" target="_blank" class="inline-flex items-center text-xs text-blue-600 hover:text-blue-800">
+                        <span>View original listing</span>
+                        <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 <% } %>
               </div>
