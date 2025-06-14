@@ -122,6 +122,27 @@ async function getItemById(id) {
 async function createItem(item) {
   if (isProduction && pool) {
     try {
+      console.log('Received item data:', item);
+
+      // Validate and sanitize the data
+      const sanitizedData = {
+        name: item.name || '',
+        description: item.description || '',
+        product_type: item.product_type || '',
+        price: parseFloat(item.price) || 0,
+        material: item.material || '',
+        quality: item.quality || '',
+        lifespan: parseInt(item.lifespan) || null,
+        annual_cost: parseFloat(item.annual_cost) || null,
+        maintenance_cost_per_year: parseFloat(item.maintenance_cost_per_year) || null,
+        total_maintenance_cost: parseFloat(item.total_maintenance_cost) || null,
+        total_lifetime_cost: parseFloat(item.total_lifetime_cost) || null,
+        calculation_results: item.calculation_results || {},
+        url: item.url || ''
+      };
+
+      console.log('Sanitized data:', sanitizedData);
+
       // Convert camelCase to snake_case for database fields
       const result = await pool.query(
         `INSERT INTO saved_items(
@@ -131,36 +152,38 @@ async function createItem(item) {
           url
         ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
         [
-          item.name,
-          item.description,
-          item.productType || item.product_type,
-          item.price,
-          item.material,
-          item.quality,
-          item.lifespan,
-          item.annualCost || item.annual_cost,
-          item.maintenanceCostPerYear || item.maintenance_cost_per_year,
-          item.totalMaintenanceCost || item.total_maintenance_cost,
-          item.totalLifetimeCost || item.total_lifetime_cost,
-          JSON.stringify(item.calculationResults || item.calculation_results),
-          item.url
+          sanitizedData.name,
+          sanitizedData.description,
+          sanitizedData.product_type,
+          sanitizedData.price,
+          sanitizedData.material,
+          sanitizedData.quality,
+          sanitizedData.lifespan,
+          sanitizedData.annual_cost,
+          sanitizedData.maintenance_cost_per_year,
+          sanitizedData.total_maintenance_cost,
+          sanitizedData.total_lifetime_cost,
+          JSON.stringify(sanitizedData.calculation_results),
+          sanitizedData.url
         ]
-      )
-      return result.rows[0]
+      );
+
+      console.log('Database insert result:', result.rows[0]);
+      return result.rows[0];
     } catch (err) {
-      console.error('Database insert error:', err)
-      throw err
+      console.error('Database insert error:', err);
+      throw err;
     }
   } else {
     // For development, add to mock data
-    const newId = mockSavedItems.length > 0 ? Math.max(...mockSavedItems.map(item => item.id)) + 1 : 1
+    const newId = mockSavedItems.length > 0 ? Math.max(...mockSavedItems.map(item => item.id)) + 1 : 1;
     const newItem = { 
       id: newId, 
       ...item,
       createdAt: new Date()
-    }
-    mockSavedItems.push(newItem)
-    return newItem
+    };
+    mockSavedItems.push(newItem);
+    return newItem;
   }
 }
 
