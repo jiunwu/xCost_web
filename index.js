@@ -55,9 +55,9 @@ async function initializeDatabaseSchema() {
 
 // Mock data for local development
 const mockSavedItems = [
-  { id: 1, name: 'Item 1', description: 'Description for item 1' },
-  { id: 2, name: 'Item 2', description: 'Description for item 2' },
-  { id: 3, name: 'Item 3', description: 'Description for item 3' }
+  { id: 1, name: 'Item 1', description: 'Description for item 1', price: 0, productType: '', material: '', quality: '', lifespan: null, annualCost: null, maintenanceCostPerYear: null, totalMaintenanceCost: null, totalLifetimeCost: null, calculationResults: null, createdAt: new Date() },
+  { id: 2, name: 'Item 2', description: 'Description for item 2', price: 0, productType: '', material: '', quality: '', lifespan: null, annualCost: null, maintenanceCostPerYear: null, totalMaintenanceCost: null, totalLifetimeCost: null, calculationResults: null, createdAt: new Date() },
+  { id: 3, name: 'Item 3', description: 'Description for item 3', price: 0, productType: '', material: '', quality: '', lifespan: null, annualCost: null, maintenanceCostPerYear: null, totalMaintenanceCost: null, totalLifetimeCost: null, calculationResults: null, createdAt: new Date() }
 ]
 
 const app = express()
@@ -81,6 +81,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json()) // Add middleware to parse JSON bodies
+app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 

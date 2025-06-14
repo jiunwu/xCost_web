@@ -332,24 +332,24 @@
               <div class="space-y-3">
                 <div class="flex justify-between">
                   <span class="text-gray-600">Price:</span>
-                  <span class="font-medium">€<%= item.price.toFixed(2) %></span>
+                  <span class="font-medium">€<%= (typeof item.price === 'number' ? item.price.toFixed(2) : (item.price ? item.price : 'N/A')) %></span>
                 </div>
                 
-                <% if (item.lifespan) { %>
+                <% if (typeof item.lifespan !== 'undefined' && item.lifespan !== null) { %>
                   <div class="flex justify-between">
                     <span class="text-gray-600">Lifespan:</span>
                     <span class="font-medium"><%= item.lifespan %> years</span>
                   </div>
                 <% } %>
 
-                <% if (item.annualCost) { %>
+                <% if (typeof item.annualCost === 'number') { %>
                   <div class="flex justify-between">
                     <span class="text-gray-600">Annual Cost:</span>
                     <span class="font-medium">€<%= item.annualCost.toFixed(2) %></span>
                   </div>
                 <% } %>
 
-                <% if (item.totalLifetimeCost) { %>
+                <% if (typeof item.totalLifetimeCost === 'number') { %>
                   <div class="flex justify-between">
                     <span class="text-gray-600">Total Lifetime Cost:</span>
                     <span class="font-medium">€<%= item.totalLifetimeCost.toFixed(2) %></span>
