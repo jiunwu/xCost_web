@@ -42,6 +42,7 @@ async function initializeDatabaseSchema() {
           total_maintenance_cost DECIMAL(10,2),
           total_lifetime_cost DECIMAL(10,2),
           calculation_results JSONB,
+          url TEXT,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
       `)
@@ -126,12 +127,13 @@ async function createItem(item) {
         `INSERT INTO saved_items(
           name, description, product_type, price, material, quality,
           lifespan, annual_cost, maintenance_cost_per_year,
-          total_maintenance_cost, total_lifetime_cost, calculation_results
-        ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+          total_maintenance_cost, total_lifetime_cost, calculation_results,
+          url
+        ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
         [
           item.name,
           item.description,
-          item.productType || item.product_type, // Handle both camelCase and snake_case
+          item.productType || item.product_type,
           item.price,
           item.material,
           item.quality,
@@ -140,7 +142,8 @@ async function createItem(item) {
           item.maintenanceCostPerYear || item.maintenance_cost_per_year,
           item.totalMaintenanceCost || item.total_maintenance_cost,
           item.totalLifetimeCost || item.total_lifetime_cost,
-          JSON.stringify(item.calculationResults || item.calculation_results)
+          JSON.stringify(item.calculationResults || item.calculation_results),
+          item.url
         ]
       )
       return result.rows[0]
@@ -151,7 +154,11 @@ async function createItem(item) {
   } else {
     // For development, add to mock data
     const newId = mockSavedItems.length > 0 ? Math.max(...mockSavedItems.map(item => item.id)) + 1 : 1
-    const newItem = { id: newId, ...item }
+    const newItem = { 
+      id: newId, 
+      ...item,
+      createdAt: new Date()
+    }
     mockSavedItems.push(newItem)
     return newItem
   }
