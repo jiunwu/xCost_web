@@ -320,13 +320,24 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% savedItems.forEach(item => { %>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300" data-item-id="<%= item.id %>">
             <div class="p-6">
               <div class="flex justify-between items-start mb-4">
                 <h2 class="text-xl font-semibold text-gray-800"><%= item.name %></h2>
-                <span class="px-3 py-1 text-sm rounded-full <%= item.productType === 'car' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
-                  <%= item.productType ? (item.productType.charAt(0).toUpperCase() + item.productType.slice(1)) : '' %>
-                </span>
+                <div class="flex items-center gap-2">
+                  <span class="px-3 py-1 text-sm rounded-full <%= item.productType === 'car' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
+                    <%= item.productType ? (item.productType.charAt(0).toUpperCase() + item.productType.slice(1)) : '' %>
+                  </span>
+                  <button 
+                    onclick="deleteItem(<%= item.id %>)" 
+                    class="ml-2 p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-colors duration-200"
+                    title="Delete item"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               <div class="space-y-3">
@@ -385,12 +396,6 @@
                   <span class="text-sm text-gray-500">
                     Saved on <%= new Date(item.createdAt).toLocaleDateString() %>
                   </span>
-                  <button 
-                    onclick="deleteItem('<%= item.id %>')"
-                    class="text-red-600 hover:text-red-800 text-sm font-medium"
-                  >
-                    Delete
-                  </button>
                 </div>
               </div>
             </div>
@@ -412,7 +417,72 @@
     </div>
   </div>
 
-  <!-- Reference external JavaScript file -->
-  <script src="/saved-items.js"></script>
+  <!-- JavaScript for delete functionality -->
+  <script>
+    async function deleteItem(itemId) {
+      if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/items/${itemId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Remove the item from the DOM
+          const itemElement = document.querySelector(`[data-item-id="${itemId}"]`);
+          if (itemElement) {
+            itemElement.style.transition = 'opacity 0.3s ease-out';
+            itemElement.style.opacity = '0';
+            setTimeout(() => {
+              itemElement.remove();
+              
+              // Check if there are no items left
+              const remainingItems = document.querySelectorAll('[data-item-id]');
+              if (remainingItems.length === 0) {
+                location.reload(); // Reload to show "no items" message
+              }
+            }, 300);
+          }
+          
+          // Show success message
+          showMessage('Item deleted successfully', 'success');
+        } else {
+          showMessage(result.error || 'Failed to delete item', 'error');
+        }
+      } catch (error) {
+        console.error('Error deleting item:', error);
+        showMessage('An error occurred while deleting the item', 'error');
+      }
+    }
+
+    function showMessage(message, type) {
+      // Create a simple toast notification
+      const toast = document.createElement('div');
+      toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+      }`;
+      toast.textContent = message;
+      
+      document.body.appendChild(toast);
+      
+      // Remove the toast after 3 seconds
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s ease-out';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          if (document.body.contains(toast)) {
+            document.body.removeChild(toast);
+          }
+        }, 300);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
