@@ -316,52 +316,90 @@
   <!-- Main Content -->
   <div class="main-content">
     <div class="container">
-      <h1 class="headline">Your Saved Items</h1>
+      <h1 class="headline">Saved Products</h1>
 
-      <!-- Add New Item Form -->
-      <div class="form-container" id="addItemForm">
-        <h2 class="form-title">Add New Item</h2>
-        <div class="form-group">
-          <label for="itemName" class="form-label">Item Name</label>
-          <input type="text" id="itemName" class="form-control" placeholder="Enter item name">
-        </div>
-        <div class="form-group">
-          <label for="itemDescription" class="form-label">Description</label>
-          <textarea id="itemDescription" class="form-control" placeholder="Enter description" rows="3"></textarea>
-        </div>
-        <div class="form-buttons">
-          <button type="button" id="submitNewItem" class="btn-submit">Add Item</button>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% items.forEach(item => { %>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-4">
+                <h2 class="text-xl font-semibold text-gray-800"><%= item.name %></h2>
+                <span class="px-3 py-1 text-sm rounded-full <%= item.productType === 'car' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
+                  <%= item.productType.charAt(0).toUpperCase() + item.productType.slice(1) %>
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Price:</span>
+                  <span class="font-medium">€<%= item.price.toFixed(2) %></span>
+                </div>
+                
+                <% if (item.lifespan) { %>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Lifespan:</span>
+                    <span class="font-medium"><%= item.lifespan %> years</span>
+                  </div>
+                <% } %>
+
+                <% if (item.annualCost) { %>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Annual Cost:</span>
+                    <span class="font-medium">€<%= item.annualCost.toFixed(2) %></span>
+                  </div>
+                <% } %>
+
+                <% if (item.totalLifetimeCost) { %>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Total Lifetime Cost:</span>
+                    <span class="font-medium">€<%= item.totalLifetimeCost.toFixed(2) %></span>
+                  </div>
+                <% } %>
+
+                <% if (item.quality) { %>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Quality:</span>
+                    <span class="font-medium"><%= item.quality %></span>
+                  </div>
+                <% } %>
+
+                <% if (item.material) { %>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Material:</span>
+                    <span class="font-medium"><%= item.material %></span>
+                  </div>
+                <% } %>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-200">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-gray-500">
+                    Saved on <%= new Date(item.createdAt).toLocaleDateString() %>
+                  </span>
+                  <button 
+                    onclick="deleteItem('<%= item.id %>')"
+                    class="text-red-600 hover:text-red-800 text-sm font-medium"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
       </div>
 
-      <!-- Edit Item Form (Hidden by default) -->
-      <div class="form-container hidden" id="editItemForm">
-        <h2 class="form-title">Edit Item</h2>
-        <input type="hidden" id="editItemId">
-        <div class="form-group">
-          <label for="editItemName" class="form-label">Item Name</label>
-          <input type="text" id="editItemName" class="form-control" placeholder="Enter item name">
+      <% if (items.length === 0) { %>
+        <div class="text-center py-12">
+          <div class="text-gray-400 mb-4">
+            <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No saved items yet</h3>
+          <p class="text-gray-500">Start saving products to see them here</p>
         </div>
-        <div class="form-group">
-          <label for="editItemDescription" class="form-label">Description</label>
-          <textarea id="editItemDescription" class="form-control" placeholder="Enter description" rows="3"></textarea>
-        </div>
-        <div class="form-buttons">
-          <button type="button" id="updateItem" class="btn-submit">Update Item</button>
-          <button type="button" id="cancelEdit" class="btn-cancel">Cancel</button>
-        </div>
-      </div>
-
-      <!-- Loading indicator -->
-      <div id="loadingItems" class="loading">
-        <i class="fas fa-spinner"></i> Loading items...
-      </div>
-
-      <!-- Error message -->
-      <div id="errorMessage" class="error hidden"></div>
-
-      <!-- Items list -->
-      <ul class="saved-items-list" id="itemsList"></ul>
+      <% } %>
     </div>
   </div>
 
