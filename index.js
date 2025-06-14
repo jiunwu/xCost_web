@@ -137,7 +137,9 @@ async function createItem(item) {
         maintenance_cost_per_year: parseFloat(item.maintenance_cost_per_year) || null,
         total_maintenance_cost: parseFloat(item.total_maintenance_cost) || null,
         total_lifetime_cost: parseFloat(item.total_lifetime_cost) || null,
-        calculation_results: item.calculation_results || {},
+        calculation_results: typeof item.calculation_results === 'string' ? 
+          JSON.parse(item.calculation_results) : 
+          (item.calculation_results || {}),
         url: item.url || ''
       };
 
@@ -305,17 +307,14 @@ app.get('/api/items/:id', async (req, res) => {
 // POST create new item
 app.post('/api/items', async (req, res) => {
   try {
-    const { name, description } = req.body
+    console.log('Received POST request to /api/items');
+    console.log('Request body:', req.body);
     
-    if (!name || !description) {
-      return res.status(400).json({ error: 'Name and description are required' })
-    }
-    
-    const newItem = await createItem({ name, description })
-    res.status(201).json(newItem)
+    const newItem = await createItem(req.body);
+    res.json(newItem);
   } catch (err) {
-    console.error('Error creating item:', err)
-    res.status(500).json({ error: 'Failed to create item' })
+    console.error('Error creating item:', err);
+    res.status(500).json({ error: err.message });
   }
 })
 
